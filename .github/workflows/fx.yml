@@ -1,0 +1,28 @@
+name: Daily JPY-TWD rate
+on:
+  schedule:
+    - cron: '30 0 * * *'   # 08:30 Asia/Taipei, after ExchangeRate-API's daily update
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: fx-rate
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch rate and update rates.json / index.html
+        run: python3 .github/scripts/fx_update.py .
+      - name: Commit if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then echo "no change"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Daily JPY-TWD rate $(date -u +%F)"
+          git push
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || true

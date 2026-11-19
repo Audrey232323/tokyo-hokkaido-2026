@@ -1,6 +1,6 @@
 /* trip26 offline service worker */
-var V='trip26-ae3b16747b',IMG='trip26-img-v1';
-var CORE=['./','./index.html','./fonts/huninn-0b0f67d4.woff2','./fonts/iansui-bc6c36b4.woff2','./manifest.webmanifest','./icon-192.png','./apple-touch-icon.png','./img/map/sapporo.webp','./img/map/haneda.webp',
+var V='trip26-605992e893',IMG='trip26-img-v1';
+var CORE=['./','./index.html','./fonts/huninn-54a9bac3.woff2','./fonts/iansui-bc6c36b4.woff2','./manifest.webmanifest','./icon-192.png','./apple-touch-icon.png','./img/map/sapporo.webp','./img/map/haneda.webp',
  './img/cat/all.webp','./img/cat/hotel.webp','./img/cat/spot.webp','./img/cat/shop.webp','./img/cat/food.webp','./img/cat/conv.webp','./img/cat/trans.webp','./img/cat/wheel.webp'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return c.addAll(CORE);}).then(function(){return self.skipWaiting();}));});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k!==V&&k!==IMG&&k.indexOf('trip26')===0;}).map(function(k){return caches.delete(k);}));}).then(function(){return self.clients.claim();}));});
