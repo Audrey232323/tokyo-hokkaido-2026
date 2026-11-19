@@ -1,5 +1,5 @@
 /* trip26 offline service worker */
-var V='trip26-4a6c95cd54',IMG='trip26-img-v1';
+var V='trip26-8a698b38cb',IMG='trip26-img-v1';
 var CORE=['./','./index.html','./manifest.webmanifest','./icon-192.png','./apple-touch-icon.png','./img/map/sapporo.webp','./img/map/haneda.webp',
  './img/cat/all.webp','./img/cat/hotel.webp','./img/cat/spot.webp','./img/cat/shop.webp','./img/cat/food.webp','./img/cat/conv.webp','./img/cat/trans.webp','./img/cat/wheel.webp'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return c.addAll(CORE);}).then(function(){return self.skipWaiting();}));});
